@@ -44,13 +44,23 @@ class Application(models.Model):
         from weasyprint import HTML
         from django.conf import settings
         import os
+        super().save(*args, **kwargs)
+
         if (self.status == ApplicationStatusChoices.ACCEPTED or self.status == ApplicationStatusChoices.REJECTED) and not self.accepted:
+
             if self.status == ApplicationStatusChoices.ACCEPTED:
                 if not os.path.exists('contracts'):
                     os.makedirs('contracts')
+
                 file_name = f"contracts/{self.first_name}-{self.last_name}.pdf"
-                HTML(f"{settings.HOST_NAME}{reverse('application-generator')}?application_id={self.pk}").write_pdf(file_name)
-                self.contract_url = file_name
+                try:
+                    url = f"{settings.HOST_NAME}{reverse('application-generator')}?application_id={self.pk}"
+                    print(f"Generated URL: {url}")
+                    HTML(url).write_pdf(file_name)
+                    self.contract_url = file_name
+
+                except Exception as e:
+                    print(f"Error generating PDF: {e}")
 
             self.accepted = datetime.now()
-        return super().save(*args, **kwargs)
+            super().save(update_fields=['accepted', 'contract_url'])
