@@ -17,6 +17,6 @@ def start(update, contex):
         }
     )
 
-    message = "Hello TFIT.uz welcome to boti send your phone number to leave an application "
+    message = "Hello welcome to https://tift.vercel.app/ boti send your phone number to leave an application "
     update.message.reply_text(message, reply_markup=replies.get_contact())
     return states.PHONE

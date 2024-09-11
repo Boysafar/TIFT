@@ -194,8 +194,8 @@ def get_district(update, context):
             district = Districts.objects.get(title=text)
             context.user_data['district'] = district.id
             update.message.reply_text(
-                "Registration complete! Your information has been saved. \n\n"
-                "Hello TFIT.uz welcome to boti send your phone number to leave an application",
+                "Registration complete! Your information has been saved. \n\n\n"
+                "Hello welcome to https://tift.vercel.app/ boti send your phone number to leave an application ",
                 reply_markup=replies.get_contact()
             )
             return states.PHONE
