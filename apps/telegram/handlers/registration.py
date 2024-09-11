@@ -46,7 +46,7 @@ def get_full_name(update, context):
 
 def get_passport(update, context):
     if update.message and update.message.text:
-        if re.match("^[A-Z]{2}\d{7}$", update.message.text):
+        if re.match("r^[A-Z]{2}\d{7}$", update.message.text):
             context.user_data['passport'] = update.message.text
             update.message.reply_text("Correct, please send your pinfl")
             return states.PINFL
@@ -58,7 +58,7 @@ def get_passport(update, context):
 
 def get_pinfl(update, context):
     if update.message and update.message.text:
-        if re.match("^\d{14}$", update.message.text):
+        if re.match("r^\d{14}$", update.message.text):
             context.user_data['pinfl'] = update.message.text
             update.message.reply_text("Correct, please send your gender", reply_markup=replies.get_gender_keyboard())
             return states.GENDER
@@ -88,7 +88,7 @@ def get_gender(update, context):
 def get_birth_date(update, context):
     if update.message and update.message.text:
         text = update.message.text
-        if re.match("^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(199[5-9]|20[0-1][0-9]|202[0-4])$", text):
+        if re.match("r^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(199[5-9]|20[0-1][0-9]|202[0-4])$", text):
             try:
                 birth_date = datetime.strptime(text, '%d.%m.%Y')
                 context.user_data['birth_date'] = birth_date
