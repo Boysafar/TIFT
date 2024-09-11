@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'apps.education',
     'apps.news',
     'apps.telegram',
-    'apps.users',
     'ckeditor',
     'rest_framework',
 ]
