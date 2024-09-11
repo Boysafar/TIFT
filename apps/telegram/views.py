@@ -11,3 +11,4 @@ def message_handler(request):
     update = Update.de_json(json.loads(request.body), bot)
     dispatcher.process_update(update)
     return JsonResponse({"ok": True})
+

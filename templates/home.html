@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+{% load static %} <!-- Load static files -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Banner</title>
+    <style>
+        .banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .banner img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <!-- Adjust the path based on where the image is stored within the static folder -->
+    <img src="{% static 'images/tift.png' %}" alt="TIFT University Banner">
+</div>
+
+</body>
+</html>

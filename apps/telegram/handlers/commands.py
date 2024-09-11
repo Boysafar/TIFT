@@ -17,6 +17,6 @@ def start(update, contex):
         }
     )
 
-    message = "Assalomu alaykum TFIT.uz botiga xush kelibsiz ariza qoldirish uchun telefon raqamingizni yuboring"
-    update.message.reply_text(message,reply_markup=replies.get_contact())
+    message = "Hello TFIT.uz welcome to boti send your phone number to leave an application "
+    update.message.reply_text(message, reply_markup=replies.get_contact())
     return states.PHONE

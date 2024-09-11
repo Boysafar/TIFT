@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny
 from apps.application.views import StudentApplicationView
 from django.conf import settings
 from django.conf.urls.static import static
+from core.view import index
 
 
 from drf_yasg.views import get_schema_view
@@ -27,6 +28,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path('', index),
     path('webhook/', message_handler),
     path('admin/', admin.site.urls),
     path('student-application/', StudentApplicationView.as_view(), name='application-generator'),
@@ -38,7 +40,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.CONTRACT_URL, document_root=settings.CONTRACT_ROOT)
-
 
 urlpatterns += [
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

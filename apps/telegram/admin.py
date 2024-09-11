@@ -4,7 +4,7 @@ from apps.telegram import models
 
 @admin.register(models.Telegram)
 class TelegramUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'telegram_id', 'last_name', 'first_name', 'user')
+    list_display = ('id', 'telegram_id', 'first_name', 'last_name', 'user')
     search_fields = ('user__first_name',)
 
     def has_change_permission(self, request, obj=None):

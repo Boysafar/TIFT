@@ -51,7 +51,7 @@ def get_passport(update, context):
             update.message.reply_text("Correct, please send your pinfl")
             return states.PINFL
 
-    update.message.reply_text("Please your passport as text",
+    update.message.reply_text("Please send your passport in AA1234567 format",
                               reply_markup=ReplyKeyboardRemove())
     return states.PASSPORT
 
@@ -88,7 +88,7 @@ def get_gender(update, context):
 def get_birth_date(update, context):
     if update.message and update.message.text:
         text = update.message.text
-        if re.match("^(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[0-2]).(195[0-9]|20[0-9]{2})$", update.message.text):
+        if re.match("^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(199[5-9]|20[0-1][0-9]|202[0-4])$", text):
             try:
                 birth_date = datetime.strptime(text, '%d.%m.%Y')
                 context.user_data['birth_date'] = birth_date
@@ -194,10 +194,11 @@ def get_district(update, context):
             district = Districts.objects.get(title=text)
             context.user_data['district'] = district.id
             update.message.reply_text(
-                "Registration complete! Your information has been saved.",
-                reply_markup=ReplyKeyboardRemove()
+                "Registration complete! Your information has been saved. \n\n"
+                "Hello TFIT.uz welcome to boti send your phone number to leave an application",
+                reply_markup=replies.get_contact()
             )
-            return states.END
+            return states.PHONE
         except Districts.DoesNotExist:
             region = Regions.objects.get(id=context.user_data['region'])
             update.message.reply_text(
@@ -212,3 +213,4 @@ def get_district(update, context):
         reply_markup=replies.get_items(region.districts.all(), "title")
     )
     return states.DISTRICT
+

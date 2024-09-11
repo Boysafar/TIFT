@@ -34,4 +34,3 @@ class NewsContentAPITestCase(APITestCase):
         else:
             self.fail("Results list is empty.")
 
-
