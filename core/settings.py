@@ -146,9 +146,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,  # Number of items per page
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://a979-92-63-204-65.ngrok-free.app/']
-HOST_NAME = config('HOST_NAME')
-BOT_TOKEN = config('BOT_TOKEN')
+# CSRF_TRUSTED_ORIGINS = ['https://a979-92-63-204-65.ngrok-free.app/']
+HOST_NAME="http://127.0.0.1:8000"
+BOT_TOKEN="7355857174:AAHcjHeIJ_k6EQ19UTjx2idofAyNIsmygqo"
 
 
 CONTRACT_URL = 'contracts'
