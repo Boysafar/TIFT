@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY="django-insecure---qnoo*#l0(zlamyadklgxb9uk4v1+#wn6ty=+3&7_w0onne9b"
+SECRET_KEY = "django-insecure---qnoo*#l0(zlamyadklgxb9uk4v1+#wn6ty=+3&7_w0onne9b"
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(int(config("DEBUG", default=False)))
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', ".now.sh", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['.vercel.app', "127.0.0.1", "localhost", '*']
 
 
 # Application definition
@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,  # Number of items per page
 }
 
-# CSRF_TRUSTED_ORIGINS = ['https://a979-92-63-204-65.ngrok-free.app/']
+CSRF_TRUSTED_ORIGINS = ['https://d5c8-92-63-204-97.ngrok-free.app/']
 HOST_NAME = "http://127.0.0.1:8000"
 # BOT_TOKEN = "7355857174:AAHcjHeIJ_k6EQ19UTjx2idofAyNIsmygqo"
 
