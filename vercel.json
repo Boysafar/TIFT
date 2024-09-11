@@ -1,17 +1,19 @@
 {
-  "builds": [{
-    "src": "core/wsgi.py",
-    "use": "@vercel/python",
-    "config": {
-      "maxLambdaSize": "15mb", "runtime":  "python3.9",
-      "postdeploy": "python manage.py migrate"
+  "builds": [
+    {
+      "src": "core/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9",
+        "postdeploy": "python manage.py migrate"
+      }
     }
-  }
-
   ],
-  "routes": [{
-    "src": "/(.*)",
-    "dest": "core/wsgi.py"
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "core/wsgi.py"
+    }
   ]
 }
