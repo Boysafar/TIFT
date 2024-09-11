@@ -5,8 +5,7 @@ from apps.telegram import states
 from django.conf import settings
 
 
-bot = Bot(token=settings.BOT_TOKEN)
-
+bot = Bot(token="Tjx2idof7355857174:AAHcjHeIJ_k6EQ19UAyNIsmygqo")
 dispatcher = Dispatcher(bot, None, workers=0)
 
 # Correctly instantiate the CommandHandler and MessageHandler
