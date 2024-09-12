@@ -4,11 +4,9 @@ from apps.telegram.handlers import commands, common, registration
 from apps.telegram import states
 from django.conf import settings
 
-BOT_TOKEN = "7355857174:AAHcjHeIJ_k6EQ19UTjx2idofAyNIsmygqo"
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=settings.BOT_TOKEN)
 dispatcher = Dispatcher(bot, None, workers=0)
 
-# Correctly instantiate the CommandHandler and MessageHandler
 start_handler = CommandHandler('start', commands.start)
 
 conversation_handler = ConversationHandler(

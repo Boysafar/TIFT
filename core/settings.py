@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os.path
-
+import dj_database_url
 from decouple import config
 from pathlib import Path
 from core.ckeeditor import CKEDITOR_CONFIGS
@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure---qnoo*#l0(zlamyadklgxb9uk4v1+#wn6ty=+3&7_w0onne9b"
+SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(int(config("DEBUG", default=False)))
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ['.vercel.app', "127.0.0.1", "localhost", '*']
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -92,6 +92,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.parse(config("DATABASE_URL"))
 
 
 
@@ -148,10 +149,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,  # Number of items per page
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://d5c8-92-63-204-97.ngrok-free.app/']
+# CSRF_TRUSTED_ORIGINS = ['https://d5c8-92-63-204-97.ngrok-free.app/']
 HOST_NAME = "http://127.0.0.1:8000"
-# BOT_TOKEN = "7355857174:AAHcjHeIJ_k6EQ19UTjx2idofAyNIsmygqo"
-
+BOT_TOKEN = config("BOT_TOKEN")
 
 CONTRACT_URL = 'contracts'
 CONTRACT_ROOT = BASE_DIR / 'contracts'
