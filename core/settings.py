@@ -145,7 +145,7 @@ REST_FRAMEWORK = {
 }
 
 # CSRF_TRUSTED_ORIGINS = ['https://d5c8-92-63-204-97.ngrok-free.app/']
-HOST_NAME = "http://127.0.0.1:8000"
+HOST_NAME = "127.0.0.1,tift-uz.onrender.com"
 BOT_TOKEN = config("BOT_TOKEN")
 
 CONTRACT_URL = 'contracts'
