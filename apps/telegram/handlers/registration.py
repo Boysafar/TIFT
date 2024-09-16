@@ -1,4 +1,4 @@
-from apps.application.models import Application
+from apps.application.models import Application, ApplicationStatusChoices
 from apps.telegram.keyboards import replies
 from apps.telegram import states
 from telegram import ReplyKeyboardRemove
@@ -187,18 +187,67 @@ def get_region(update, context):
     return states.REGION
 
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 def get_district(update, context):
     if update.message and update.message.text:
         text = update.message.text
         try:
             district = Districts.objects.get(title=text)
             context.user_data['district'] = district.id
-            update.message.reply_text(
-                "Registration complete! Your information has been saved. \n\n\n"
-                "Hello welcome to https://tift-uz.onrender.com boti send your phone number to leave an application ",
-                reply_markup=replies.get_contact()
+
+            # Retrieve user ID from Telegram data
+            user_id = update.message.from_user.id
+            full_name = context.user_data['full_name']
+
+            # Split full_name into first_name and last_name
+            name_parts = full_name.split(' ', 1)
+            first_name = name_parts[0]
+            last_name = name_parts[1] if len(name_parts) > 1 else ''  # Handle single-word names
+
+            passport = context.user_data['passport']
+            pinfl = context.user_data['pinfl']
+            gender = context.user_data['gender']
+            birth_date = context.user_data['birth_date']
+            direction = context.user_data['direction']
+            district = district
+
+            # Check if the user exists in the auth_user table, otherwise create one
+            user, created = User.objects.get_or_create(
+                id=user_id,
+                defaults={'username': first_name, 'first_name': first_name, 'last_name': last_name}
             )
-            return states.PHONE
+
+            # Check if an application already exists for this user
+            if Application.objects.filter(user=user).exists():
+                update.message.reply_text(
+                    "You have already submitted your application and cannot resubmit it.",
+                    reply_markup=ReplyKeyboardRemove()
+                )
+                return states.END
+
+            # Create the application
+            application = Application.objects.create(
+                user=user,
+                first_name=first_name,
+                last_name=last_name,
+                passport=passport,
+                pinfl=pinfl,
+                gender=gender,
+                birth_date=birth_date,
+                direction_id=direction,
+                district=district,
+                status=ApplicationStatusChoices.PENDING  # Default status
+            )
+
+            update.message.reply_text(
+                "Registration complete! Your information has been saved. "
+                "We will notify you once your application is processed."
+            )
+
+            return states.END
+
         except Districts.DoesNotExist:
             region = Regions.objects.get(id=context.user_data['region'])
             update.message.reply_text(
@@ -213,4 +262,3 @@ def get_district(update, context):
         reply_markup=replies.get_items(region.districts.all(), "title")
     )
     return states.DISTRICT
-

@@ -29,8 +29,8 @@ SECRET_KEY = config("SECRET_KEY")
 # DEBUG = bool(int(config("DEBUG", default=False)))
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
-
+# ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -144,7 +144,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,  # Number of items per page
 }
 
-# CSRF_TRUSTED_ORIGINS = ['https://d5c8-92-63-204-97.ngrok-free.app/']
+CSRF_TRUSTED_ORIGINS = ['https://27c8-86-62-2-250.ngrok-free.app/']
 HOST_NAME = "127.0.0.1,tift-uz.onrender.com"
 BOT_TOKEN = config("BOT_TOKEN")
 
