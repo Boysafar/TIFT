@@ -13,12 +13,12 @@ def get_phone(update, context):
         contact_user_id = update.message.contact.user_id
         user_id = update.message.from_user.id
 
-        if Application.objects.filter(user_id=user_id).exists():
-            update.message.reply_text(
-                "You have already submitted your application and cannot resubmit it.",
-                reply_markup=ReplyKeyboardRemove()
-            )
-            return states.END
+        # if Application.objects.filter(user_id=user_id).exists():
+        #     update.message.reply_text(
+        #         "You have already submitted your application and cannot resubmit it.",
+        #         reply_markup=ReplyKeyboardRemove()
+        #     )
+        #     return states.END
 
         if contact_user_id != user_id:
             update.message.reply_text("This number does not belong to you!", reply_markup=replies.get_contact())
