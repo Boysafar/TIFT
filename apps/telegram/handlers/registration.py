@@ -190,6 +190,7 @@ def get_region(update, context):
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+
 def get_district(update, context):
     if update.message and update.message.text:
         text = update.message.text
@@ -197,11 +198,9 @@ def get_district(update, context):
             district = Districts.objects.get(title=text)
             context.user_data['district'] = district.id
 
-            # Retrieve user ID from Telegram data
             user_id = update.message.from_user.id
             full_name = context.user_data['full_name']
 
-            # Split full_name into first_name and last_name
             name_parts = full_name.split(' ', 1)
             first_name = name_parts[0]
             last_name = name_parts[1] if len(name_parts) > 1 else ''  # Handle single-word names
@@ -213,13 +212,11 @@ def get_district(update, context):
             direction = context.user_data['direction']
             district = district
 
-            # Check if the user exists in the auth_user table, otherwise create one
             user, created = User.objects.get_or_create(
                 id=user_id,
                 defaults={'username': first_name, 'first_name': first_name, 'last_name': last_name}
             )
 
-            # Check if an application already exists for this user
             if Application.objects.filter(user=user).exists():
                 update.message.reply_text(
                     "You have already submitted your application and cannot resubmit it.",
@@ -227,7 +224,6 @@ def get_district(update, context):
                 )
                 return states.END
 
-            # Create the application
             application = Application.objects.create(
                 user=user,
                 first_name=first_name,
@@ -243,10 +239,11 @@ def get_district(update, context):
 
             update.message.reply_text(
                 "Registration complete! Your information has been saved. "
-                "We will notify you once your application is processed."
+                "We will notify you once your application is processed.\n\n"
+                "Hello welcome to https://tift-uz.onrender.com boti send your phone number to leave an application "
             )
 
-            return states.END
+            return states.PHONE
 
         except Districts.DoesNotExist:
             region = Regions.objects.get(id=context.user_data['region'])
